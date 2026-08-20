@@ -48,7 +48,7 @@ export function StockChart({ data, isPositive }: StockChartProps) {
           <Tooltip 
             contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
             itemStyle={{ color: '#0f172a', fontWeight: 'bold' }}
-            formatter={(value: any) => [`₹${Number(value).toLocaleString(undefined, { minimumFractionDigits: 2 })}`, 'Price']}
+            formatter={(value: unknown) => [`₹${Number(value).toLocaleString(undefined, { minimumFractionDigits: 2 })}`, 'Price']}
           />
           <Area 
             type="monotone" 

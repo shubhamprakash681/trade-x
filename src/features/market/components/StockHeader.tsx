@@ -12,6 +12,10 @@ interface StockHeaderProps {
 }
 
 export function StockHeader({ stock, price, isLoading }: StockHeaderProps) {
+  const livePrice = useMarketStore((state) => stock ? state.prices[stock.symbol] : undefined);
+  const displayPrice = livePrice || price;
+  const isPositive = (displayPrice?.changePercent ?? 0) >= 0;
+
   if (isLoading || !stock) {
     return (
       <div className="flex justify-between items-start animate-pulse">
@@ -26,11 +30,6 @@ export function StockHeader({ stock, price, isLoading }: StockHeaderProps) {
       </div>
     );
   }
-
-  const livePrice = useMarketStore((state) => stock ? state.prices[stock.symbol] : undefined);
-  const displayPrice = livePrice || price;
-
-  const isPositive = (displayPrice?.changePercent ?? 0) >= 0;
 
   return (
     <div>

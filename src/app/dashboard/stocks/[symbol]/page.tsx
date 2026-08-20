@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useState, useEffect } from 'react';
+import { use, useState } from 'react';
 import { useStock, useMarketHistory, useLatestPrice } from '@/features/market/hooks/useMarketQueries';
 import { StockHeader } from '@/features/market/components/StockHeader';
 import { StockChart } from '@/features/market/components/StockChart';
@@ -9,8 +9,8 @@ import { subDays, formatISO } from 'date-fns';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
 
-export default function StockDetailsPage({ params }: { params: Promise<{ symbol: string }> }) {
-  const { symbol } = use(params);
+export default function StockDetailsPage(props: { params: Promise<{ symbol: string }> }) {
+  const { symbol } = use(props.params);
   
   // Calculate date range for the last 30 days
   const [dateRange] = useState(() => {
@@ -36,7 +36,7 @@ export default function StockDetailsPage({ params }: { params: Promise<{ symbol:
     return (
       <div className="flex flex-col items-center justify-center py-12">
         <h2 className="text-2xl font-bold text-slate-800">Stock not found</h2>
-        <p className="text-slate-500 mt-2">We couldn't find details for "{symbol}"</p>
+        <p className="text-slate-500 mt-2">We couldn&apos;t find details for &quot;{symbol}&quot;</p>
         <Link href="/dashboard" className="mt-6 text-[var(--color-primary)] font-medium hover:underline">
           Return to Dashboard
         </Link>

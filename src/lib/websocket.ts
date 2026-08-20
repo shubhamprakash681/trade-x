@@ -35,7 +35,7 @@ export class WebSocketService {
     if (this.client.connected) {
       return this.client.subscribe(destination, callback);
     } else {
-      let sub: any = null;
+      let sub: { unsubscribe: () => void } | null = null;
       this.onConnectCallbacks.push(() => {
         sub = this.client.subscribe(destination, callback);
       });

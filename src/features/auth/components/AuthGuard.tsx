@@ -11,6 +11,7 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
   const [isMounted, setIsMounted] = React.useState(false);
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMounted(true);
   }, []);
 
