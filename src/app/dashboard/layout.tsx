@@ -1,4 +1,5 @@
 import { AuthGuard } from '@/features/auth/components/AuthGuard';
+import { Navbar } from '@/components/layout/Navbar';
 
 export default function DashboardLayout({
   children,
@@ -7,9 +8,9 @@ export default function DashboardLayout({
 }) {
   return (
     <AuthGuard>
-      <div className="flex min-h-screen flex-col">
-        {/* We will add Navbar/Sidebar here later */}
-        <main className="flex-1 bg-slate-50">
+      <div className="min-h-screen bg-slate-50 flex flex-col">
+        <Navbar />
+        <main className="flex-1 container mx-auto px-4 py-8 sm:px-8">
           {children}
         </main>
       </div>
