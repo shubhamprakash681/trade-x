@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { useAuthStore } from '@/store/useAuthStore';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8080';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '';
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -12,7 +13,6 @@ export const apiClient = axios.create({
 // Request interceptor to add the auth token header to every request
 apiClient.interceptors.request.use(
   (config) => {
-    // We will hook this up to the auth store later
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('trade-x-access-token');
       if (token && config.headers) {
@@ -33,8 +33,13 @@ apiClient.interceptors.response.use(
   },
   (error) => {
     if (error.response?.status === 401) {
-      // Handle unauthorized (e.g., clear auth state and redirect to login)
-      // We will implement this securely in the auth feature
+      // Handle unauthorized: clear auth state and redirect to login
+      if (typeof window !== 'undefined') {
+        useAuthStore.getState().logout();
+        if (!window.location.pathname.startsWith('/login') && !window.location.pathname.startsWith('/register')) {
+          window.location.href = '/login';
+        }
+      }
     }
     return Promise.reject(error);
   }
