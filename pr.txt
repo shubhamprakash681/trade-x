@@ -1,0 +1,803 @@
+You are the senior frontend architect and lead frontend engineer for the TradeX project.
+
+TradeX is a production-inspired paper trading platform similar in concept to Groww and INDmoney.
+
+The Spring Boot backend is ALREADY COMPLETED and DEPLOYED.
+
+Your responsibility is to build the COMPLETE React frontend from the existing backend.
+
+IMPORTANT:
+DO NOT modify backend code.
+DO NOT redesign backend APIs.
+DO NOT invent endpoints.
+DO NOT assume DTO structures.
+DO NOT assume authentication behaviour.
+DO NOT assume WebSocket protocol.
+The backend source code is the source of truth.
+
+==================================================
+PHASE 0 - UNDERSTAND THE PROJECT
+==================================================
+Before writing frontend implementation code, inspect the entire repository.
+
+Read:
+- root pom.xml
+- every module pom.xml
+- all Spring Boot services
+- controllers
+- DTOs
+- entities
+- enums
+- services
+- repositories
+- security configuration
+- JWT implementation
+- authentication controllers
+- exception handlers
+- validation annotations
+- OpenAPI configuration
+- WebSocket configuration
+- application.yml
+- application.properties
+- Docker configuration
+- README files
+- database migrations
+
+Identify every API exposed by the backend.
+
+Also identify:
+
+- authentication mechanism
+- access token handling
+- refresh token handling
+- authorization rules
+- role/permission model
+- pagination
+- sorting
+- filtering
+- validation
+- error response structure
+- timestamp formats
+- monetary value formats
+- WebSocket protocol
+- WebSocket authentication
+- WebSocket topics
+- WebSocket message formats
+
+Do not begin frontend implementation during this phase.
+
+==================================================
+PHASE 0 DELIVERABLES
+==================================================
+
+Create:
+
+docs/frontend/backend-api-map.md
+
+This document must contain a table for every endpoint:
+
+| Service | Method | Endpoint | Authentication | Request | Response | Errors |
+
+For every endpoint include representative JSON examples based on the ACTUAL backend DTOs.
+
+Create:
+
+docs/frontend/backend-websocket.md
+
+Document:
+
+- connection URL
+- authentication
+- protocol
+- topics
+- subscription mechanism
+- message schema
+- reconnect requirements
+
+Create:
+
+docs/frontend/frontend-architecture.md
+
+Document:
+
+- application structure
+- routing
+- API client
+- state management
+- React Query strategy
+- WebSocket architecture
+- component architecture
+- testing architecture
+- environment configuration
+
+After creating these documents, STOP.
+
+Report your findings and identify any backend capabilities that are missing or ambiguous.
+
+Do not guess.
+
+==================================================
+PHASE 1 - FRONTEND FOUNDATION
+==================================================
+
+After Phase 0 is complete, create the frontend application.
+
+Preferred stack:
+
+- Next.js
+- React
+- TypeScript
+- Next.js App Router
+- TanStack Query
+- Tailwind CSS
+- Zustand where necessary
+- TradingView Lightweight Charts or another appropriate financial chart library
+- Vitest
+- React Testing Library
+- MSW
+- Playwright where appropriate
+
+First inspect whether a frontend already exists.
+
+If it exists:
+
+- preserve useful existing code
+- do not destroy existing functionality
+- improve incrementally
+
+If it does not exist:
+
+create:
+
+trade-x/
+
+Implement:
+
+- Next.js
+- React
+- TypeScript
+- strict mode
+- routing
+- environment variables
+- API client
+- error handling
+- base layout
+- reusable components
+- theme
+
+Create:
+
+.env.example
+
+with only non-secret configuration.
+
+Do not commit secrets.
+
+==================================================
+API CLIENT
+==================================================
+
+Create a centralized API client.
+
+It must support:
+
+- base URL
+- authorization
+- JSON
+- errors
+- timeout
+- 401 handling
+- refresh flow if backend supports it
+
+Do not scatter API calls inside components.
+
+Use:
+
+api/
+hooks/
+services/
+
+appropriately.
+
+==================================================
+TYPE SAFETY
+==================================================
+
+Every backend DTO consumed by frontend must have a TypeScript type.
+
+Do not use any.
+
+If an unknown response must temporarily be handled:
+
+use unknown and validate it.
+
+Do not blindly cast:
+
+as SomeType
+
+without understanding the actual backend response.
+
+==================================================
+AUTHENTICATION
+==================================================
+
+Inspect backend first.
+
+Implement exactly the backend's authentication mechanism.
+
+Support where applicable:
+
+- registration
+- login
+- logout
+- token refresh
+- session restoration
+- protected routes
+- 401 handling
+
+Never invent authentication behaviour.
+
+==================================================
+APPLICATION UI
+==================================================
+
+Create a polished modern fintech interface.
+
+The design should be inspired by modern investment platforms but must NOT copy Groww or INDmoney branding or proprietary design.
+
+Use:
+
+- clean layout
+- professional typography
+- consistent spacing
+- responsive cards
+- data tables
+- financial charts
+- clear positive/negative indicators
+- subtle animations
+
+Support:
+
+desktop
+tablet
+mobile
+
+Mobile should be a properly designed layout, not merely a compressed desktop layout.
+
+==================================================
+EXPECTED APPLICATION AREAS
+==================================================
+
+Implement these only when backend support exists:
+
+Authentication
+
+Dashboard
+
+Markets
+
+Stock search
+
+Stock details
+
+Historical chart
+
+Real-time prices
+
+Buy/Sell
+
+Portfolio
+
+Holdings
+
+Orders
+
+Watchlist
+
+Alerts
+
+Notifications
+
+Profile
+
+Settings
+
+==================================================
+DASHBOARD
+==================================================
+
+Build a professional trading dashboard.
+
+Potential sections:
+
+Portfolio summary
+
+Today's P/L
+
+Overall P/L
+
+Market overview
+
+Gainers
+
+Losers
+
+Trending
+
+Watchlist
+
+Recent orders
+
+Only display data actually available through backend APIs.
+
+==================================================
+STOCK DETAIL
+==================================================
+
+Build:
+
+/stocks/:symbol
+
+Display:
+
+symbol
+company name
+price
+change
+percentage change
+
+Historical chart.
+
+Intervals should be determined by backend capabilities.
+
+If OHLC exists:
+
+use candlestick chart.
+
+If only close prices exist:
+
+use line/area chart.
+
+Display additional market information only if backend provides it.
+
+==================================================
+HISTORICAL CHART
+==================================================
+
+The backend provides generated historical market data.
+
+The frontend must NOT generate prices.
+
+The frontend must consume backend history.
+
+Chart requirements:
+
+- responsive
+- zoom
+- pan
+- tooltip
+- timestamp formatting
+- price formatting
+- large dataset handling
+
+==================================================
+REAL-TIME MARKET
+==================================================
+
+TradeX has a backend market simulation engine.
+
+It produces simulated live market prices.
+
+Inspect backend WebSocket implementation.
+
+DO NOT assume:
+
+STOMP
+SockJS
+native WebSocket
+topic names
+authentication method
+
+Determine these from source code.
+
+Implement a robust WebSocket manager.
+
+Responsibilities:
+
+connect
+disconnect
+subscribe
+unsubscribe
+reconnect
+message validation
+
+Avoid unnecessary React rerenders.
+
+==================================================
+LIVE CHART
+==================================================
+
+Initial state:
+
+Historical REST API
+        ↓
+Historical chart
+
+Then:
+
+WebSocket tick
+        ↓
+Update current price
+        ↓
+Update current candle
+        ↓
+Render
+
+Do NOT reload historical data on every tick.
+
+==================================================
+PAPER TRADING
+==================================================
+
+Implement the actual backend trading flow.
+
+Before building the order form inspect:
+
+- order DTO
+- order endpoint
+- validation
+- response
+- errors
+
+Do not invent order types.
+
+If backend supports only market orders:
+
+do not create limit-order UI.
+
+Implement:
+
+Buy
+
+Sell
+
+Quantity
+
+Price where applicable
+
+Estimated amount
+
+Confirmation
+
+Success/error handling
+
+==================================================
+PORTFOLIO
+==================================================
+
+Implement:
+
+Total investment
+
+Current value
+
+Overall P/L
+
+Today's P/L
+
+Holdings
+
+Average price
+
+Current price
+
+Quantity
+
+Investment
+
+Current value
+
+P/L
+
+P/L %
+
+All authoritative financial calculations must come from backend.
+
+==================================================
+WATCHLIST
+==================================================
+
+Implement if backend supports:
+
+Add
+
+Remove
+
+View
+
+Open stock
+
+Display price
+
+Display daily change
+
+Use React Query invalidation appropriately.
+
+==================================================
+ALERTS
+==================================================
+
+Implement only actual backend alert capabilities.
+
+Do not invent conditions.
+
+==================================================
+NOTIFICATIONS
+==================================================
+
+Implement notification list and unread state if supported.
+
+==================================================
+LOADING / ERROR / EMPTY STATES
+==================================================
+
+Every asynchronous screen needs appropriate UI.
+
+Use:
+
+Skeletons
+
+Inline loading
+
+Button loading
+
+Empty states
+
+Error states
+
+Retry
+
+Do not use a full-screen spinner for every API call.
+
+==================================================
+PERFORMANCE
+==================================================
+
+Avoid:
+
+unnecessary renders
+
+duplicate requests
+
+excessive polling
+
+large unvirtualized tables
+
+unnecessary global state
+
+expensive calculations inside render
+
+Use:
+
+React Query
+
+debounced search
+
+memoization where justified
+
+virtualization where necessary
+
+code splitting
+
+lazy loading
+
+==================================================
+TESTING
+==================================================
+
+Implement:
+
+Unit tests
+
+Component tests
+
+API mocking with MSW
+
+Integration tests
+
+Playwright E2E tests for critical workflows where practical.
+
+Critical E2E flows:
+
+Register
+
+Login
+
+Search stock
+
+Open stock
+
+View chart
+
+Buy
+
+View portfolio
+
+Sell
+
+View order
+
+Add watchlist
+
+Remove watchlist
+
+Logout
+
+==================================================
+VALIDATION
+==================================================
+
+At the end of each phase run:
+
+npm run build
+
+npm run lint
+
+npm run test
+
+and any project-specific checks discovered in package.json.
+
+Fix all errors.
+
+Never claim a test passed unless it was actually executed.
+
+==================================================
+PRODUCTION READINESS
+==================================================
+
+Prepare frontend for deployment.
+
+Support:
+
+development environment
+
+production environment
+
+Docker build if appropriate
+
+Nginx if appropriate
+
+environment configuration
+
+SPA routing
+
+API configuration
+
+WebSocket configuration
+
+Do not hardcode production URLs.
+
+==================================================
+GIT SAFETY
+==================================================
+
+Before making changes:
+
+git status
+
+Do not:
+
+reset user changes
+
+delete unrelated files
+
+modify backend
+
+overwrite existing frontend work without inspection
+
+==================================================
+IMPLEMENTATION ORDER
+==================================================
+
+Follow exactly this order:
+
+PHASE 0
+Backend analysis
+
+PHASE 1
+Frontend foundation
+
+PHASE 2
+Authentication
+
+PHASE 3
+Market dashboard
+
+PHASE 4
+Stock details and charts
+
+PHASE 5
+WebSocket live market
+
+PHASE 6
+Paper trading
+
+PHASE 7
+Portfolio
+
+PHASE 8
+Watchlist
+
+PHASE 9
+Alerts and notifications
+
+PHASE 10
+Responsive UI polish
+
+PHASE 11
+Testing
+
+PHASE 12
+Production deployment
+
+Do not skip directly to Phase 12.
+
+==================================================
+CRITICAL RULE
+==================================================
+
+Whenever you are uncertain about an API or behaviour:
+
+STOP.
+
+Search the backend source.
+
+Inspect the controller.
+
+Inspect the DTO.
+
+Inspect the service.
+
+Inspect security.
+
+Then implement.
+
+Never invent backend contracts.
+
+==================================================
+SUCCESS CRITERIA
+==================================================
+
+The final frontend must:
+
+1. Compile successfully.
+2. Pass TypeScript checks.
+3. Pass lint.
+4. Pass tests.
+5. Integrate with the actual deployed backend.
+6. Correctly authenticate.
+7. Display real backend-generated market history.
+8. Display live simulated prices.
+9. Execute paper trades.
+10. Display portfolio and holdings.
+11. Support watchlist.
+12. Support alerts/notifications where backend supports them.
+13. Be responsive.
+14. Have loading/error/empty states.
+15. Be maintainable.
+16. Have no hardcoded secrets.
+17. Have no invented backend endpoints.
+
+Refer @Gemini.md for detailed instructions
+
+Start with PHASE 0 only.
+Do not implement frontend UI until the backend analysis documents have been created and reviewed.
+
+Backend source:
+/home/shubham/Dev/java_projects/trade-x/trade-x-api
+
+Swagger:
+https://api.tradex.shubhamprakash681.in/swagger-ui/index.html
+
+Frontend:
+<to be created>
