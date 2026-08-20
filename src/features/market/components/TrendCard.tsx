@@ -1,14 +1,16 @@
 import { MarketTrendResponse } from '@/types/market';
 import { Card, CardContent } from '@/components/ui/card';
 import { Flame } from 'lucide-react';
+import Link from 'next/link';
 
 export function TrendCard({ trend }: { trend: MarketTrendResponse }) {
   const isPositive = trend.changePercent >= 0;
   
   return (
-    <Card className="min-w-[240px] shrink-0 cursor-pointer transition-colors hover:bg-slate-50 border-l-4 border-l-orange-500">
-      <CardContent className="p-4">
-        <div className="flex justify-between items-start mb-2">
+    <Link href={`/dashboard/stocks/${trend.symbol}`} className="min-w-[240px] shrink-0 outline-none focus:ring-2 focus:ring-[var(--color-primary)] rounded-xl">
+      <Card className="h-full cursor-pointer transition-colors hover:bg-slate-50 border-l-4 border-l-orange-500">
+        <CardContent className="p-4 h-full flex flex-col justify-between">
+          <div className="flex justify-between items-start mb-2">
           <div>
             <h4 className="font-bold text-slate-900 flex items-center gap-1">
               {trend.symbol}
@@ -36,5 +38,6 @@ export function TrendCard({ trend }: { trend: MarketTrendResponse }) {
         </div>
       </CardContent>
     </Card>
-  );
+  </Link>
+);
 }

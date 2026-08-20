@@ -1,14 +1,16 @@
 import { MarketMoverResponse } from '@/types/market';
 import { Card, CardContent } from '@/components/ui/card';
 import { TrendingUp, TrendingDown } from 'lucide-react';
+import Link from 'next/link';
 
 export function MoverCard({ mover }: { mover: MarketMoverResponse }) {
   const isPositive = mover.changeAmount >= 0;
   
   return (
-    <Card className="min-w-[200px] shrink-0 cursor-pointer transition-colors hover:bg-slate-50">
-      <CardContent className="p-4">
-        <div className="flex justify-between items-start mb-2">
+    <Link href={`/dashboard/stocks/${mover.symbol}`} className="min-w-[200px] shrink-0 outline-none focus:ring-2 focus:ring-[var(--color-primary)] rounded-xl">
+      <Card className="h-full cursor-pointer transition-colors hover:bg-slate-50">
+        <CardContent className="p-4 h-full flex flex-col justify-between">
+          <div className="flex justify-between items-start mb-2">
           <div>
             <h4 className="font-bold text-slate-900">{mover.symbol}</h4>
             <p className="text-xs text-slate-500 truncate max-w-[120px]">{mover.name}</p>
@@ -28,5 +30,6 @@ export function MoverCard({ mover }: { mover: MarketMoverResponse }) {
         </div>
       </CardContent>
     </Card>
-  );
+  </Link>
+);
 }

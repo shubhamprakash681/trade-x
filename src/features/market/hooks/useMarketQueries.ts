@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getGainers, getLosers, getTrending } from '../api/market';
+import { getGainers, getLosers, getTrending, getStock, getMarketHistory, getLatestPrice } from '../api/market';
 
 export const useGainers = () => {
   return useQuery({
@@ -22,5 +22,30 @@ export const useTrending = () => {
     queryKey: ['market', 'trending'],
     queryFn: getTrending,
     refetchInterval: 10000,
+  });
+};
+
+export const useStock = (symbol: string) => {
+  return useQuery({
+    queryKey: ['market', 'stock', symbol],
+    queryFn: () => getStock(symbol),
+    enabled: !!symbol,
+  });
+};
+
+export const useMarketHistory = (symbol: string, from?: string, to?: string) => {
+  return useQuery({
+    queryKey: ['market', 'history', symbol, from, to],
+    queryFn: () => getMarketHistory(symbol, from, to),
+    enabled: !!symbol,
+  });
+};
+
+export const useLatestPrice = (symbol: string) => {
+  return useQuery({
+    queryKey: ['market', 'latestPrice', symbol],
+    queryFn: () => getLatestPrice(symbol),
+    enabled: !!symbol,
+    refetchInterval: 3000, // Poll every 3 seconds for live price
   });
 };
