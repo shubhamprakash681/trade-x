@@ -1,10 +1,16 @@
 import { MarketTrendResponse } from '@/types/market';
 import { Card, CardContent } from '@/components/ui/card';
-import { Flame } from 'lucide-react';
+import { Flame, TrendingUp, TrendingDown } from 'lucide-react';
 import Link from 'next/link';
+import { useMarketStore } from '@/store/useMarketStore';
 
 export function TrendCard({ trend }: { trend: MarketTrendResponse }) {
-  const isPositive = trend.changePercent >= 0;
+  const livePrice = useMarketStore((state) => state.prices[trend.symbol]);
+  
+  const displayPrice = livePrice?.price ?? trend.price;
+  const changePercent = livePrice?.changePercent ?? trend.changePercent;
+  
+  const isPositive = changePercent >= 0;
   
   return (
     <Link href={`/dashboard/stocks/${trend.symbol}`} className="min-w-[240px] shrink-0 outline-none focus:ring-2 focus:ring-[var(--color-primary)] rounded-xl">
@@ -23,19 +29,22 @@ export function TrendCard({ trend }: { trend: MarketTrendResponse }) {
           </div>
         </div>
         
-        <div className="mt-3">
-          <p className="text-lg font-bold text-slate-900">
-            ₹{trend.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-          </p>
-          <div className="flex items-center justify-between mt-1">
-            <p className={`text-sm font-medium ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
-              {isPositive ? '+' : ''}{trend.changePercent.toFixed(2)}%
-            </p>
-            <p className="text-xs text-slate-400 max-w-[120px] truncate" title={trend.reason}>
-              {trend.reason}
-            </p>
+        <div className="mt-4 flex justify-between items-end">
+            <div>
+              <p className="text-lg font-bold text-slate-900">
+                ₹{displayPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </p>
+              <p className={`text-xs font-medium flex items-center gap-1 ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
+                {isPositive ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
+                {isPositive ? '+' : ''}{changePercent.toFixed(2)}%
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="text-xs text-slate-400 max-w-[120px] truncate" title={trend.reason}>
+                {trend.reason}
+              </p>
+            </div>
           </div>
-        </div>
       </CardContent>
     </Card>
   </Link>

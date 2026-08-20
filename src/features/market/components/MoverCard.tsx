@@ -2,9 +2,16 @@ import { MarketMoverResponse } from '@/types/market';
 import { Card, CardContent } from '@/components/ui/card';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 import Link from 'next/link';
+import { useMarketStore } from '@/store/useMarketStore';
 
 export function MoverCard({ mover }: { mover: MarketMoverResponse }) {
-  const isPositive = mover.changeAmount >= 0;
+  const livePrice = useMarketStore((state) => state.prices[mover.symbol]);
+  
+  const displayPrice = livePrice?.price ?? mover.price;
+  const changeAmount = livePrice?.changeAmount ?? mover.changeAmount;
+  const changePercent = livePrice?.changePercent ?? mover.changePercent;
+  
+  const isPositive = changeAmount >= 0;
   
   return (
     <Link href={`/dashboard/stocks/${mover.symbol}`} className="min-w-[200px] shrink-0 outline-none focus:ring-2 focus:ring-[var(--color-primary)] rounded-xl">
@@ -21,13 +28,14 @@ export function MoverCard({ mover }: { mover: MarketMoverResponse }) {
         </div>
         
         <div className="mt-4">
-          <p className="text-lg font-bold text-slate-900">
-            ₹{mover.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-          </p>
-          <p className={`text-sm font-medium ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
-            {isPositive ? '+' : ''}{mover.changeAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ({isPositive ? '+' : ''}{mover.changePercent.toFixed(2)}%)
-          </p>
-        </div>
+            <p className="text-lg font-bold text-slate-900">
+              ₹{displayPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </p>
+            <p className={`text-xs font-medium flex items-center gap-1 ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
+              {isPositive ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
+              {isPositive ? '+' : ''}{changeAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ({isPositive ? '+' : ''}{changePercent.toFixed(2)}%)
+            </p>
+          </div>
       </CardContent>
     </Card>
   </Link>

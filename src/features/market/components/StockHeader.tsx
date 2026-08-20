@@ -3,6 +3,7 @@
 import { StockResponse, PriceResponse } from '@/types/market';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useMarketStore } from '@/store/useMarketStore';
 
 interface StockHeaderProps {
   stock?: StockResponse;
@@ -26,7 +27,10 @@ export function StockHeader({ stock, price, isLoading }: StockHeaderProps) {
     );
   }
 
-  const isPositive = (price?.changePercent ?? 0) >= 0;
+  const livePrice = useMarketStore((state) => stock ? state.prices[stock.symbol] : undefined);
+  const displayPrice = livePrice || price;
+
+  const isPositive = (displayPrice?.changePercent ?? 0) >= 0;
 
   return (
     <div>
@@ -42,14 +46,14 @@ export function StockHeader({ stock, price, isLoading }: StockHeaderProps) {
         </div>
         
         <div className="text-right">
-          {price ? (
+          {displayPrice ? (
             <>
               <div className="text-3xl font-bold text-slate-900">
-                ₹{price.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                ₹{displayPrice.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </div>
               <div className={`flex items-center justify-end gap-1 font-medium ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
                 {isPositive ? <TrendingUp size={18} /> : <TrendingDown size={18} />}
-                {isPositive ? '+' : ''}{price.changeAmount.toLocaleString(undefined, { minimumFractionDigits: 2 })} ({isPositive ? '+' : ''}{price.changePercent.toFixed(2)}%)
+                {isPositive ? '+' : ''}{displayPrice.changeAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ({isPositive ? '+' : ''}{displayPrice.changePercent.toFixed(2)}%)
               </div>
             </>
           ) : (

@@ -46,6 +46,5 @@ export const useLatestPrice = (symbol: string) => {
     queryKey: ['market', 'latestPrice', symbol],
     queryFn: () => getLatestPrice(symbol),
     enabled: !!symbol,
-    refetchInterval: 3000, // Poll every 3 seconds for live price
   });
 };
