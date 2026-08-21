@@ -133,7 +133,7 @@ export function ChangePasswordDialog({ children }: { children: React.ReactNode }
           <div className="flex justify-end gap-2 pt-2">
             <Button
               type="button"
-              className="bg-transparent text-slate-700 hover:bg-slate-100 border border-slate-200 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800"
+              variant="outline"
               onClick={() => handleOpenChange(false)}
               disabled={mutation.isPending}
             >

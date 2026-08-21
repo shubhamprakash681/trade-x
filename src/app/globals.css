@@ -3,26 +3,84 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-primary: #1e40af;
-  --color-primary-dark: #1e3a8a;
-  --color-primary-light: #3b82f6;
-  
-  --color-success: #16a34a;
-  --color-danger: #dc2626;
-  
-  --color-background: #f8fafc;
+  --color-primary: #0f766e;
+  --color-primary-dark: #115e59;
+  --color-primary-light: #14b8a6;
+  --color-success: #059669;
+  --color-danger: #e11d48;
+  --color-background: #f5f7fb;
   --color-surface: #ffffff;
+  --color-foreground: #102a43;
+  --color-muted: #f8fafc;
+  --color-muted-foreground: #62748a;
+  --color-ring: #14b8a6;
   
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 @layer base {
-  body {
-    @apply bg-slate-50 text-slate-900 font-sans antialiased;
+  :root {
+    color-scheme: light;
+    --app-background: #f5f7fb;
+    --app-background-accent: #e6fffb;
+    --app-surface: #ffffff;
+    --app-surface-muted: #f8fafc;
+    --app-border: #dbe4ee;
+    --app-foreground: #102a43;
+    --app-muted: #62748a;
+    --app-muted-soft: #91a0b2;
+    --app-hover: #eef8f7;
+    --app-ring: #14b8a6;
+    --color-background: #f5f7fb;
+    --color-foreground: #102a43;
+    --color-muted: #f8fafc;
+    --color-muted-foreground: #62748a;
+    --color-ring: #14b8a6;
   }
 
-  .dark body {
-    @apply bg-slate-950 text-slate-50;
+  .dark {
+    color-scheme: dark;
+    --app-background: #07131f;
+    --app-background-accent: #0a2430;
+    --app-surface: #0d1d2b;
+    --app-surface-muted: #102535;
+    --app-border: #244257;
+    --app-foreground: #e8f0f5;
+    --app-muted: #a7bdcc;
+    --app-muted-soft: #7792a5;
+    --app-hover: #153447;
+    --app-ring: #2dd4bf;
+    --color-background: #0d1d2b;
+    --color-foreground: #e8f0f5;
+    --color-muted: #102535;
+    --color-muted-foreground: #a7bdcc;
+    --color-ring: #2dd4bf;
   }
+
+  html,
+  body {
+    min-height: 100%;
+    background:
+      radial-gradient(circle at top right, var(--app-background-accent), transparent 34rem),
+      var(--app-background);
+    color: var(--app-foreground);
+    @apply font-sans antialiased;
+  }
+}
+
+/* Existing feature screens use Tailwind's light slate utilities. Map them to
+   semantic tokens in dark mode so every route changes together. */
+@layer utilities {
+  .dark .bg-white { background-color: var(--app-surface); }
+  .dark .bg-slate-50, .dark .bg-slate-50\/50 { background-color: var(--app-surface-muted); }
+  .dark .bg-slate-100 { background-color: #173043; }
+  .dark .bg-slate-200 { background-color: #244257; }
+  .dark .text-slate-950, .dark .text-slate-900, .dark .text-slate-800, .dark .text-slate-700 { color: var(--app-foreground); }
+  .dark .text-slate-600, .dark .text-slate-500 { color: var(--app-muted); }
+  .dark .text-slate-400 { color: var(--app-muted-soft); }
+  .dark .border-slate-100, .dark .border-slate-200, .dark .border-slate-300 { border-color: var(--app-border); }
+  .dark .hover\:bg-slate-50:hover, .dark .hover\:bg-slate-50\/50:hover,
+  .dark .hover\:bg-slate-100:hover, .dark .hover\:bg-slate-800:hover { background-color: var(--app-hover); }
+  .dark .hover\:text-slate-900:hover { color: #ffffff; }
 }

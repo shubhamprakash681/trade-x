@@ -167,7 +167,7 @@ export function ForgotPasswordDialog({ open, onOpenChange }: ForgotPasswordDialo
 
         <DialogFooter>
           <Button 
-            className="bg-transparent border border-slate-200 hover:bg-slate-100 text-slate-900" 
+            variant="outline"
             type="button" 
             onClick={handleClose}
           >

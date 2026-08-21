@@ -39,8 +39,9 @@ export default function WatchlistPage() {
           <h1 className="text-2xl font-bold tracking-tight text-slate-900">Watchlist</h1>
           <p className="text-slate-500 mt-1">Keep track of your favorite stocks</p>
         </div>
-        <Button 
-          className="!bg-white !text-slate-700 border border-slate-300 hover:!bg-slate-50 px-3 py-1.5 h-8 text-xs"
+        <Button
+          variant="outline"
+          className="h-8 px-3 py-1.5 text-xs"
           onClick={() => refetch()} 
           disabled={isRefetching}
         >
