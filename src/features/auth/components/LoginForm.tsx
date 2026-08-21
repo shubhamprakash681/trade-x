@@ -10,7 +10,6 @@ import Link from 'next/link';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/types/api';
 
-import { toast } from 'sonner';
 import { ForgotPasswordDialog } from './ForgotPasswordDialog';
 
 export function LoginForm() {

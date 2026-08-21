@@ -5,7 +5,6 @@ import { MarketSection } from '@/features/market/components/MarketSection';
 import { MoverCard } from '@/features/market/components/MoverCard';
 import { TrendCard } from '@/features/market/components/TrendCard';
 import { useAuthStore } from '@/store/useAuthStore';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function DashboardPage() {
   const { user } = useAuthStore();

@@ -3,7 +3,7 @@ import { LoginForm } from '../LoginForm';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAuthStore } from '@/store/useAuthStore';
 import { apiClient } from '@/api/client';
-import { AxiosError } from 'axios';
+import { AxiosError, type InternalAxiosRequestConfig } from 'axios';
 
 // Mock next/navigation
 jest.mock('next/navigation', () => ({
@@ -89,7 +89,7 @@ describe('LoginForm', () => {
       status: 401,
       statusText: 'Unauthorized',
       headers: {},
-      config: {} as any,
+      config: {} as InternalAxiosRequestConfig,
     };
     
     (apiClient.post as jest.Mock).mockRejectedValueOnce(error);

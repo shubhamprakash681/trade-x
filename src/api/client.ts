@@ -33,12 +33,9 @@ apiClient.interceptors.response.use(
   },
   (error) => {
     if (error.response?.status === 401) {
-      // Handle unauthorized: clear auth state and redirect to login
+      // AuthGuard observes this store update and redirects protected routes.
       if (typeof window !== 'undefined') {
         useAuthStore.getState().logout();
-        if (!window.location.pathname.startsWith('/login') && !window.location.pathname.startsWith('/register')) {
-          window.location.href = '/login';
-        }
       }
     }
     return Promise.reject(error);
