@@ -28,3 +28,12 @@ export interface ChangePasswordRequest {
   newPassword?: string;
 }
 
+export interface PasswordRecoveryRequest {
+  email: string;
+}
+
+export interface PasswordResetRequest {
+  email: string;
+  otp: string;
+  newPassword?: string;
+}

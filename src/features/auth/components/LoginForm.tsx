@@ -11,17 +11,19 @@ import { AxiosError } from 'axios';
 import { ApiError } from '@/types/api';
 
 import { toast } from 'sonner';
+import { ForgotPasswordDialog } from './ForgotPasswordDialog';
 
 export function LoginForm() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [errorMsg, setErrorMsg] = React.useState('');
+  const [showForgotPassword, setShowForgotPassword] = React.useState(false);
   
   const loginMutation = useLoginMutation();
 
   const handleForgotPassword = (e: React.MouseEvent) => {
     e.preventDefault();
-    toast.info("Password recovery is not supported yet.");
+    setShowForgotPassword(true);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -70,8 +72,9 @@ export function LoginForm() {
             <div className="flex items-center justify-between">
               <Label htmlFor="password">Password</Label>
               <button 
+                type='button'
                 onClick={handleForgotPassword}
-                className="text-sm font-medium text-[var(--color-primary)] hover:underline focus:outline-none"
+                className="text-sm font-medium text-primary hover:underline focus:outline-none"
               >
                 Forgot Password?
               </button>
@@ -105,6 +108,7 @@ export function LoginForm() {
           </Link>
         </div>
       </CardFooter>
+      <ForgotPasswordDialog open={showForgotPassword} onOpenChange={setShowForgotPassword} />
     </Card>
   );
 }

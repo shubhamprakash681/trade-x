@@ -50,3 +50,15 @@ export const useChangePasswordMutation = () => {
     mutationFn: (data: import('@/types/auth').ChangePasswordRequest) => import('../api/auth').then((m) => m.changePassword(data)),
   });
 };
+
+export const useRequestPasswordRecoveryMutation = () => {
+  return useMutation({
+    mutationFn: (data: import('@/types/auth').PasswordRecoveryRequest) => import('../api/auth').then((m) => m.requestPasswordRecovery(data)),
+  });
+};
+
+export const useResetPasswordMutation = () => {
+  return useMutation({
+    mutationFn: (data: import('@/types/auth').PasswordResetRequest) => import('../api/auth').then((m) => m.resetPassword(data)),
+  });
+};

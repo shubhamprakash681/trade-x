@@ -24,3 +24,10 @@ export const changePassword = async (data: import('@/types/auth').ChangePassword
   await apiClient.put('/api/users/password', data);
 };
 
+export const requestPasswordRecovery = async (data: import('@/types/auth').PasswordRecoveryRequest): Promise<void> => {
+  await apiClient.post('/api/auth/password-recovery/request', data);
+};
+
+export const resetPassword = async (data: import('@/types/auth').PasswordResetRequest): Promise<void> => {
+  await apiClient.post('/api/auth/password-recovery/reset', data);
+};
