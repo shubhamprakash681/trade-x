@@ -15,3 +15,8 @@ export const sellOrder = async (request: OrderRequest): Promise<OrderResponse> =
   const { data } = await apiClient.post<OrderResponse>('/api/orders/sell', request);
   return data;
 };
+
+export const getOrderHistory = async (): Promise<OrderResponse[]> => {
+  const { data } = await apiClient.get<OrderResponse[]>('/api/orders/history');
+  return data;
+};

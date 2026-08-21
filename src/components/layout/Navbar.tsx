@@ -31,6 +31,9 @@ export function Navbar() {
             <Link href="/dashboard/portfolio" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
               Portfolio
             </Link>
+            <Link href="/dashboard/orders" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
+              Orders
+            </Link>
           </div>
         </div>
         

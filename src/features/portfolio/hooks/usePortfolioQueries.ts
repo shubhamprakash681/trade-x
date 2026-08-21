@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
-import { buyOrder, sellOrder, getPortfolio } from '../api/portfolio';
+import { buyOrder, sellOrder, getPortfolio, getOrderHistory } from '../api/portfolio';
 import { OrderRequest, OrderResponse, PortfolioResponse } from '@/types/portfolio';
 import { ApiError } from '@/types/api';
 import { toast } from 'sonner';
@@ -8,6 +8,13 @@ export const usePortfolio = () => {
   return useQuery<PortfolioResponse, ApiError>({
     queryKey: ['portfolio'],
     queryFn: getPortfolio,
+  });
+};
+
+export const useOrderHistory = () => {
+  return useQuery<OrderResponse[], ApiError>({
+    queryKey: ['orders', 'history'],
+    queryFn: getOrderHistory,
   });
 };
 
