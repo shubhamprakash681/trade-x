@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  tradex-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tradex-next-app
+    container_name: tradex-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
