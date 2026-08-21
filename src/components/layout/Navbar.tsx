@@ -29,6 +29,9 @@ export function Navbar() {
             <Link href="/dashboard" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
               Market
             </Link>
+            <Link href="/dashboard/watchlist" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
+              Watchlist
+            </Link>
             <Link href="/dashboard/portfolio" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
               Portfolio
             </Link>

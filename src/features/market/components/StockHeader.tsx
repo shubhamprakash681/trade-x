@@ -5,6 +5,8 @@ import { TrendingUp, TrendingDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useMarketStore } from '@/store/useMarketStore';
 
+import { WatchlistButton } from '@/features/watchlist/components/WatchlistButton';
+
 interface StockHeaderProps {
   stock?: StockResponse;
   price?: PriceResponse;
@@ -40,6 +42,7 @@ export function StockHeader({ stock, price, isLoading }: StockHeaderProps) {
             <span className="px-2 py-1 text-xs font-semibold bg-slate-100 text-slate-600 rounded-md">
               {stock.exchange}
             </span>
+            <WatchlistButton symbol={stock.symbol} />
           </div>
           <p className="text-slate-500 mt-1">{stock.name} • {stock.sector}</p>
         </div>
