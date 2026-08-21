@@ -18,3 +18,30 @@ export interface OrderResponse {
   status: OrderStatus;
   createdAt: string;
 }
+
+export interface PortfolioSummaryResponse {
+  cashBalance: number;
+  holdingsValue: number;
+  totalValue: number;
+  investedValue: number;
+  unrealizedPnl: number;
+  unrealizedPnlPercent: number;
+}
+
+export interface HoldingResponse {
+  symbol: string;
+  stockName: string;
+  quantity: number;
+  averagePrice: number;
+  lastPrice: number;
+  investedValue: number;
+  marketValue: number;
+  unrealizedPnl: number;
+  unrealizedPnlPercent: number;
+}
+
+export interface PortfolioResponse {
+  summary: PortfolioSummaryResponse;
+  holdings: HoldingResponse[];
+}
+
