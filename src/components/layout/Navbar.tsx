@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useLogoutMutation } from '@/features/auth/hooks/useAuthMutations';
+import { NotificationsPopover } from '@/features/notifications/components/NotificationsPopover';
 import { LogOut, User as UserIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -34,12 +35,16 @@ export function Navbar() {
             <Link href="/dashboard/orders" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
               Orders
             </Link>
+            <Link href="/dashboard/alerts" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
+              Alerts
+            </Link>
           </div>
         </div>
         
-        <div className="flex flex-1 items-center justify-end space-x-4">
+        <div className="flex flex-1 items-center justify-end space-x-2 sm:space-x-4">
           {user && (
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
+              <NotificationsPopover />
               <div className="hidden sm:flex items-center gap-2 text-sm font-medium text-slate-700">
                 <UserIcon size={16} />
                 {user.fullName}
