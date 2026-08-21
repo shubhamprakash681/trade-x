@@ -4,6 +4,8 @@ import { use, useState } from 'react';
 import { useStock, useMarketHistory, useLatestPrice } from '@/features/market/hooks/useMarketQueries';
 import { StockHeader } from '@/features/market/components/StockHeader';
 import { StockChart } from '@/features/market/components/StockChart';
+import { OrderForm } from '@/features/portfolio/components/OrderForm';
+import { useMarketStore } from '@/store/useMarketStore';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { subDays, formatISO } from 'date-fns';
 import Link from 'next/link';
@@ -30,7 +32,10 @@ export default function StockDetailsPage(props: { params: Promise<{ symbol: stri
     dateRange.to
   );
 
-  const isPositive = (latestPrice?.changePercent ?? 0) >= 0;
+  const livePriceData = useMarketStore((state) => state.prices[symbol]);
+  const currentPrice = livePriceData?.price || latestPrice?.price || 0;
+
+  const isPositive = (livePriceData?.changePercent ?? latestPrice?.changePercent ?? 0) >= 0;
 
   if (isStockError) {
     return (
@@ -79,10 +84,11 @@ export default function StockDetailsPage(props: { params: Promise<{ symbol: stri
             <CardTitle>Trade Execution</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col items-center justify-center h-48 border-2 border-dashed border-slate-200 rounded-lg text-slate-500">
-              <p className="font-medium">Paper Trading</p>
-              <p className="text-sm">Coming in Phase 6</p>
-            </div>
+            {stock ? (
+              <OrderForm symbol={stock.symbol} currentPrice={currentPrice} />
+            ) : (
+              <div className="h-48 animate-pulse bg-slate-100 rounded-lg"></div>
+            )}
           </CardContent>
         </Card>
       </div>
