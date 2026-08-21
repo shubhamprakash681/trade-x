@@ -5,7 +5,9 @@ import Link from 'next/link';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useLogoutMutation } from '@/features/auth/hooks/useAuthMutations';
 import { NotificationsPopover } from '@/features/notifications/components/NotificationsPopover';
-import { LogOut, User as UserIcon, Menu, X } from 'lucide-react';
+import { ThemeToggle } from '@/components/layout/ThemeToggle';
+import { ChangePasswordDialog } from '@/features/auth/components/ChangePasswordDialog';
+import { LogOut, User as UserIcon, Menu, X, KeyRound } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { usePathname } from 'next/navigation';
 
@@ -43,7 +45,7 @@ export function Navbar() {
               <Link 
                 key={link.name}
                 href={link.href} 
-                className={`text-sm font-medium transition-colors hover:text-slate-900 ${pathname === link.href ? 'text-[var(--color-primary)]' : 'text-slate-600'}`}
+                className={`text-sm font-medium transition-colors hover:text-slate-900 dark:hover:text-slate-50 ${pathname === link.href ? 'text-[var(--color-primary)]' : 'text-slate-600 dark:text-slate-400'}`}
               >
                 {link.name}
               </Link>
@@ -52,13 +54,20 @@ export function Navbar() {
         </div>
         
         <div className="flex flex-1 items-center justify-end space-x-2 sm:space-x-4">
+          <ThemeToggle />
           {user && (
             <div className="flex items-center gap-2 sm:gap-4">
               <NotificationsPopover />
-              <div className="hidden sm:flex items-center gap-2 text-sm font-medium text-slate-700">
+              <div className="hidden sm:flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
                 <UserIcon size={16} />
                 {user.fullName}
               </div>
+              <ChangePasswordDialog>
+                <Button className="hidden sm:flex gap-2 bg-transparent text-slate-700 hover:bg-slate-100 border border-slate-200 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-800">
+                  <KeyRound size={16} />
+                  <span>Change Password</span>
+                </Button>
+              </ChangePasswordDialog>
               <Button 
                 onClick={handleLogout}
                 disabled={logoutMutation.isPending}

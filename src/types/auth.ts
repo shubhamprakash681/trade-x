@@ -22,3 +22,9 @@ export interface SignupRequest {
   fullName: string;
   password?: string;
 }
+
+export interface ChangePasswordRequest {
+  currentPassword?: string;
+  newPassword?: string;
+}
+

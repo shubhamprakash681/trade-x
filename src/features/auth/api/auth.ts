@@ -19,3 +19,8 @@ export const getMe = async (): Promise<User> => {
   const response = await apiClient.get<User>('/api/users/me');
   return response.data;
 };
+
+export const changePassword = async (data: import('@/types/auth').ChangePasswordRequest): Promise<void> => {
+  await apiClient.put('/api/users/password', data);
+};
+

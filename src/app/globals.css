@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
 @theme {
   --color-primary: #1e40af;
   --color-primary-dark: #1e3a8a;
@@ -18,5 +20,9 @@
 @layer base {
   body {
     @apply bg-slate-50 text-slate-900 font-sans antialiased;
+  }
+
+  .dark body {
+    @apply bg-slate-950 text-slate-50;
   }
 }

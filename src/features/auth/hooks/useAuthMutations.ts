@@ -44,3 +44,9 @@ export const useLogoutMutation = () => {
     },
   });
 };
+
+export const useChangePasswordMutation = () => {
+  return useMutation({
+    mutationFn: (data: import('@/types/auth').ChangePasswordRequest) => import('../api/auth').then((m) => m.changePassword(data)),
+  });
+};
