@@ -5,8 +5,9 @@ export class WebSocketService {
   private onConnectCallbacks: (() => void)[] = [];
 
   constructor() {
+    const wsUrl = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8080/ws';
     this.client = new Client({
-      brokerURL: 'ws://localhost:8080/ws',
+      brokerURL: wsUrl,
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
