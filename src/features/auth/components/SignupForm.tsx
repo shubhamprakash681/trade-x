@@ -42,7 +42,7 @@ export function SignupForm() {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full max-w-md mx-auto pl-6 pr-6">
       <CardHeader className="space-y-1 text-center">
         <CardTitle className="text-2xl font-bold tracking-tight">Create an account</CardTitle>
         <CardDescription>Enter your details below to create your account</CardDescription>

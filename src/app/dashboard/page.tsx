@@ -22,20 +22,7 @@ export default function DashboardPage() {
         <p className="text-slate-500 mt-1">Here is your market overview for today.</p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {/* Placeholder for Portfolio Summary in future phases */}
-        <Card className="col-span-full">
-          <CardHeader>
-            <CardTitle>Portfolio Summary</CardTitle>
-            <CardDescription>Your portfolio performance (Coming in Phase 7)</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-24 bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 border border-dashed">
-              Portfolio data will appear here
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+
 
       <div className="space-y-2">
         <MarketSection title="Top Gainers" isLoading={isLoadingGainers}>
