@@ -8,10 +8,10 @@ const nextConfig: NextConfig = {
   // uses its own output adapter, so only enable it outside Vercel builds.
   ...(isVercelBuild ? {} : { output: "standalone" }),
   async rewrites() {
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+    const backendUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
     return [
       {
-        source: '/api/:path*',
+        source: "/api/:path*",
         destination: `${backendUrl}/api/:path*`,
       },
     ];

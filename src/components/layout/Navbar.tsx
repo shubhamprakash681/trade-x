@@ -10,6 +10,7 @@ import { ChangePasswordDialog } from "@/features/auth/components/ChangePasswordD
 import { LogOut, User as UserIcon, Menu, X, KeyRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export function Navbar() {
   const { user } = useAuthStore();
@@ -35,21 +36,14 @@ export function Navbar() {
       <div className="container mx-auto flex h-16 min-w-0 items-center justify-between gap-2 px-4 sm:px-6 lg:px-8">
         <div className="flex min-w-0 shrink-0 items-center gap-2 xl:gap-6">
           <Link href="/dashboard" className="flex shrink-0 items-center gap-2 xl:mr-4">
-            <div className="rounded-lg bg-[var(--color-primary)] p-1.5 text-white shadow-lg shadow-teal-900/20">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="w-5 h-5"
-              >
-                <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
-                <path d="M12 9v4" />
-                <path d="M12 17h.01" />
-              </svg>
+            <div className="rounded-lg">
+              <Image
+                src="/favicon.ico"
+                alt="TX"
+                width={28}
+                height={28}
+                className="rounded-sm"
+              />
             </div>
             <span className="hidden text-xl font-bold tracking-tight text-[var(--app-foreground)] sm:inline-block">
               TradeX

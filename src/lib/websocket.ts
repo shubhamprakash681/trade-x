@@ -1,11 +1,11 @@
-import { Client, IMessage } from '@stomp/stompjs';
+import { Client, IMessage } from "@stomp/stompjs";
 
 export class WebSocketService {
   private client: Client;
   private onConnectCallbacks: (() => void)[] = [];
 
   constructor() {
-    const wsUrl = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8080/ws';
+    const wsUrl = process.env.NEXT_PUBLIC_WS_BASE_URL || "ws://localhost:8080/ws";
     this.client = new Client({
       brokerURL: wsUrl,
       reconnectDelay: 5000,
@@ -14,13 +14,13 @@ export class WebSocketService {
     });
 
     this.client.onConnect = () => {
-      console.log('Connected to WebSocket');
+      console.log("Connected to WebSocket");
       this.onConnectCallbacks.forEach((cb) => cb());
     };
 
     this.client.onStompError = (frame) => {
-      console.error('Broker reported error: ' + frame.headers['message']);
-      console.error('Additional details: ' + frame.body);
+      console.error("Broker reported error: " + frame.headers["message"]);
+      console.error("Additional details: " + frame.body);
     };
   }
 

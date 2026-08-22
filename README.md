@@ -36,13 +36,13 @@ output settings are required; Vercel runs `npm run build`.
 
 Set these production environment variables in Vercel before deploying:
 
-| Variable | Value |
-| --- | --- |
-| `NEXT_PUBLIC_API_URL` | Public HTTPS URL of the TradeX API gateway, without a trailing slash (for example `https://api.example.com`) |
-| `NEXT_PUBLIC_WS_URL` | Public secure WebSocket URL of the API gateway (for example `wss://api.example.com/ws`) |
+| Variable                   | Value                                                                                                        |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `NEXT_PUBLIC_API_BASE_URL` | Public HTTPS URL of the TradeX API gateway, without a trailing slash (for example `https://api.example.com`) |
+| `NEXT_PUBLIC_WS_BASE_URL`  | Public secure WebSocket URL of the API gateway (for example `wss://api.example.com/ws`)                      |
 
-`NEXT_PUBLIC_API_URL` is used by the server-side `/api/*` rewrite. It must not
-point to `localhost` in Vercel. `NEXT_PUBLIC_WS_URL` is used by the browser and
+`NEXT_PUBLIC_API_BASE_URL` is used by the server-side `/api/*` rewrite. It must not
+point to `localhost` in Vercel. `NEXT_PUBLIC_WS_BASE_URL` is used by the browser and
 must be `wss://` when the frontend is served over HTTPS.
 
 The config retains standalone output for the Docker image and disables it only
